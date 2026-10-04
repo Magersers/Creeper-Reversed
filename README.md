@@ -18,14 +18,14 @@ A tiny Minecraft Java mod with one very unfortunate role reversal. Walk too clos
 ## How it works
 
 1. **Get close.** A living creeper within 3 blocks and clear line of sight starts your fuse.
-2. **Hear the warning.** The familiar creeper hiss plays at your position, with smoke particles visible to nearby players.
-3. **Run — or explode.** After 30 game ticks (1.5 seconds at 20 TPS), you explode with the normal creeper power of 3 and die.
+2. **See and hear the warning.** Your entire skin, including its outer layers, flashes white with the vanilla creeper effect. Your first-person arms and sleeves flash too. Nearby players see the same fuse state. The familiar hiss and smoke play at your position.
+3. **Run — or explode.** After 60 game ticks (3 seconds at 20 TPS), you explode with the normal creeper power of 3 and die.
 
-Once started, the fuse keeps burning while the triggering creeper is within 7 blocks and visible. Break line of sight or get at least 7 blocks away to gradually defuse, just like the vanilla creeper swell logic. A charged creeper doubles explosion power to 6.
+Once started, the fuse keeps burning while the triggering creeper is within 6 blocks and visible. Break line of sight or get at least 6 blocks away to gradually defuse. A charged creeper doubles explosion power to 6.
 
-Creepers cannot detonate, including when ignited with flint and steel. They keep their usual movement and targeting. Creative and Spectator players do not trigger the effect. Each player's fuse is independent in multiplayer.
+Creepers cannot detonate, including when ignited with flint and steel. They now flee from nearby Survival/Adventure players instead of chasing them. Their escape depends on finding a walkable path, so trapped creepers cannot flee through walls. Creative and Spectator players do not trigger the effect. Each player's fuse is independent in multiplayer.
 
-The explosion uses vanilla explosion mechanics, including damage, knockback, sound, and particles. Block destruction follows `mobGriefing`. The player dies at detonation, including with armor; normal death, inventory, and `keepInventory` rules apply. This does not add a player swelling/flashing animation or copy potion effects into a lingering cloud.
+The explosion uses vanilla explosion mechanics, including damage, knockback, sound, and particles. Block destruction follows `mobGriefing`. The player dies at detonation, including with armor; normal death, inventory, and `keepInventory` rules apply. White flashing affects the skin and hands; armor and held items retain their usual rendering. Body swelling and lingering potion clouds are not included.
 
 ## Download
 
@@ -33,10 +33,10 @@ Get the matching JAR from **[GitHub Releases](https://github.com/Magersers/Creep
 
 | Minecraft | Loader | Java | Release file |
 |---|---|---|---|
-| 1.20.1 | Fabric 0.16.14+ | 17 | `creeper-reversed-fabric-1.20.1-1.0.0.jar` |
-| 1.20.1 | Forge 47.4.0+ | 17 | `creeper-reversed-forge-1.20.1-1.0.0.jar` |
-| 1.21.1 | Fabric 0.16.14+ | 21 | `creeper-reversed-fabric-1.21.1-1.0.0.jar` |
-| 1.21.1 | NeoForge 21.1.252+ | 21 | `creeper-reversed-neoforge-1.21.1-1.0.0.jar` |
+| 1.20.1 | Fabric 0.16.14+ | 17 | `creeper-reversed-fabric-1.20.1-1.1.0.jar` |
+| 1.20.1 | Forge 47.4.0+ | 17 | `creeper-reversed-forge-1.20.1-1.1.0.jar` |
+| 1.21.1 | Fabric 0.16.14+ | 21 | `creeper-reversed-fabric-1.21.1-1.1.0.jar` |
+| 1.21.1 | NeoForge 21.1.252+ | 21 | `creeper-reversed-neoforge-1.21.1-1.1.0.jar` |
 
 ## Install
 
@@ -44,7 +44,7 @@ Get the matching JAR from **[GitHub Releases](https://github.com/Magersers/Creep
 2. Put the matching JAR in your instance's `mods` folder.
 3. Launch Minecraft and approach a creeper in Survival.
 
-**Fabric API is not required.** No configuration or extra content packs are needed. Install on both the server and clients for multiplayer. Other Minecraft versions and cross-loader combinations are not supported by these files.
+**Fabric API is not required.** No configuration or extra content packs are needed. Install the same mod version on both the server and every client for multiplayer. Remove the old mod JAR before installing this update. Other Minecraft versions and cross-loader combinations are not supported by these files.
 
 ## Build from source
 

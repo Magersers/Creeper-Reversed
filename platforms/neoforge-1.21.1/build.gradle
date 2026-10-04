@@ -37,3 +37,6 @@ if (providers.gradleProperty('integrationTest').isPresent()) {
         }
     }
 }
+
+sourceSets.main.java.srcDir('../../versions/1.21.1/src/main/java')
+sourceSets.main.resources.srcDir('../../versions/1.21.1/src/main/resources')

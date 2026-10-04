@@ -5,12 +5,16 @@ The release targets are Fabric 1.20.1, Forge 1.20.1, Fabric 1.21.1, and NeoForge
 ## Automated checks
 
 - Compile against each Minecraft version and loader.
-- Run fuse unit checks: explosion exactly on tick 30, gradual defusing, zero clamp, and state reset.
+- Run fuse unit checks: explosion exactly on tick 60, gradual defusing, zero clamp, state reset, and the vanilla white-overlay curve.
 - Launch a dedicated development server with actual Minecraft classes and the mod mixins.
-- In an isolated test world, instantiate a test player and creeper and verify: survival through tick 29, death on tick 30, escape and full defusing, Creative and Spectator immunity, and a creeper surviving 40 ticks after forced ignition.
+- In an isolated test world, instantiate a test player and creeper and verify: survival through tick 59, death on tick 60, escape and full defusing, Creative and Spectator immunity, and a creeper surviving 40 ticks after forced ignition.
+- Verify synchronized fuse metadata and reset on detonation/escape.
+- Verify removal of chase/prime goals and creation of a walkable flee path away from a nearby player.
 - Rebuild release JARs with the integration harness disabled and check their contents, metadata, and refmaps.
 
-The integration harness uses a lightweight `Player` subclass. It validates server gameplay code, not a connected client's rendering, audio output, or network behavior. A visual multiplayer playthrough has not been performed.
+The integration harness uses a lightweight `Player` subclass. All four targets pass these server checks. A separate Forge 1.20.1 client connected to a local test server was used to capture and inspect white and normal phases in first- and third-person views. This verifies real client rendering and receipt of server fuse metadata. Visual checks with multiple connected players, armor mods, and alternate rendering mods have not been performed.
+
+The optional Forge-only `-PvisualTest` harness uses the `visual/` source set. It stages a disposable scene on a loopback server at port 25581, connects a development client, and saves four PNG captures in its run directory. Never enable this against a real world. Both `-PvisualTest` and `-PintegrationTest` must be absent from release builds.
 
 ## Run the integration harness
 

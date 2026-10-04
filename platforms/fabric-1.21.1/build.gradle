@@ -22,3 +22,6 @@ tasks.register('fuseTest', JavaExec) {
 tasks.named('check') { dependsOn 'fuseTest' }
 jar { from('../../LICENSE') }
 apply from: '../../integration.gradle'
+
+sourceSets.main.java.srcDir('../../versions/1.21.1/src/main/java')
+sourceSets.main.resources.srcDir('../../versions/1.21.1/src/main/resources')

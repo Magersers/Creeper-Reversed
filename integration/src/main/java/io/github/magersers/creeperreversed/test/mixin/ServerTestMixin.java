@@ -31,7 +31,7 @@ public abstract class ServerTestMixin {
         creeperReversed$tested = true;
         try {
             Checks.run(server);
-            Files.writeString(Path.of("integration-result.txt"), "PASS: detonation, defusing, creative, spectator, creeper ignition\n");
+            Files.writeString(Path.of("integration-result.txt"), "PASS: 60-tick detonation, defusing, creative, spectator, creeper ignition, synced fuse, flee path\n");
             System.out.println("CREEPER_REVERSED_INTEGRATION_PASS");
         } catch (Throwable error) {
             Files.writeString(Path.of("integration-result.txt"), "FAIL: " + error + "\n");

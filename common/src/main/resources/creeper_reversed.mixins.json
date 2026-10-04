@@ -4,6 +4,7 @@
   "package": "io.github.magersers.creeperreversed.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "creeper_reversed.refmap.json",
-  "mixins": ["PlayerMixin", "CreeperMixin"],
+  "mixins": ["PlayerMixin", "PlayerDataMixin", "CreeperMixin"],
+  "client": ["client.LivingEntityRendererMixin", "client.PlayerRendererMixin"],
   "injectors": { "defaultRequire": 1 }
 }

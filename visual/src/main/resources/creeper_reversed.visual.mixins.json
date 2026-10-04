@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.magersers.creeperreversed.visual.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": ["VisualServerMixin"],
+  "client": ["VisualClientMixin"],
+  "injectors": {"defaultRequire": 1}
+}

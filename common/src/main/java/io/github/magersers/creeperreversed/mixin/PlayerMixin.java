@@ -1,6 +1,10 @@
 package io.github.magersers.creeperreversed.mixin;
 
 import io.github.magersers.creeperreversed.Fuse;
+import io.github.magersers.creeperreversed.FuseData;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin {
+    // Register during Player's static initialization, before subclass metadata IDs.
+    @Unique private static final EntityDataAccessor<Integer> creeperReversed$fuseTicks =
+            FuseData.TICKS = SynchedEntityData.defineId(Player.class, EntityDataSerializers.INT);
     @Unique private final Fuse creeperReversed$fuse = new Fuse();
     @Unique private Creeper creeperReversed$trigger;
 
@@ -26,6 +33,7 @@ public abstract class PlayerMixin {
         if (!player.isAlive() || player.isCreative() || player.isSpectator()) {
             creeperReversed$fuse.reset();
             creeperReversed$trigger = null;
+            player.getEntityData().set(creeperReversed$fuseTicks, 0);
             return;
         }
         if (creeperReversed$trigger == null || !creeperReversed$trigger.isAlive()
@@ -41,13 +49,14 @@ public abstract class PlayerMixin {
             }
         }
         Creeper trigger = creeperReversed$trigger;
-        boolean armed = trigger != null && player.distanceToSqr(trigger) < 49.0
+        boolean armed = trigger != null && player.distanceToSqr(trigger) < 36.0
                 && player.hasLineOfSight(trigger);
         if (creeperReversed$fuse.starting(armed)) {
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.CREEPER_PRIMED, SoundSource.PLAYERS, 1.0F, 0.5F);
         }
         boolean explode = creeperReversed$fuse.tick(armed);
+        player.getEntityData().set(creeperReversed$fuseTicks, creeperReversed$fuse.ticks());
         if (creeperReversed$fuse.ticks() > 0) {
             level.sendParticles(ParticleTypes.SMOKE, player.getX(), player.getY() + 1.1,
                     player.getZ(), 2, 0.2, 0.4, 0.2, 0.01);
@@ -58,6 +67,7 @@ public abstract class PlayerMixin {
             float power = trigger != null && trigger.isPowered() ? 6.0F : 3.0F;
             creeperReversed$fuse.reset();
             creeperReversed$trigger = null;
+            player.getEntityData().set(creeperReversed$fuseTicks, 0);
             level.explode(player, player.getX(), player.getY(), player.getZ(), power, Level.ExplosionInteraction.MOB);
             player.hurt(player.damageSources().genericKill(), Float.MAX_VALUE);
         }

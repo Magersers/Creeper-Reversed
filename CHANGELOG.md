@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 — 2026-10-04
+
+- Add vanilla creeper-style white flashing to the full player skin and its outer layers.
+- Add matching white flashing to first-person arms and sleeves.
+- Synchronize the fuse using vanilla entity metadata, including the owning client and tracking players.
+- Increase the fuse from 30 to 60 ticks (1.5 to 3 seconds at 20 TPS).
+- Reduce the escape threshold from 7 to 6 blocks; breaking line of sight also defuses.
+- Make creepers flee from nearby Survival/Adventure players instead of chasing them.
+- Fix the Forge resource-pack warning by providing version-specific `pack.mcmeta` files.
+- Add tests for the flash curve, synchronized fuse reset, and actual escape-path creation.
+
+Update the server and all clients together. Remove the 1.0.0 JAR before installing 1.1.0.
+
 ## 1.0.0 — 2026-10-04
 
 Initial release of **Creeper Reversed**.

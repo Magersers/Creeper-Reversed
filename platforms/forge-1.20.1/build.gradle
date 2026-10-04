@@ -44,3 +44,11 @@ tasks.register('fuseTest', JavaExec) {
 tasks.named('check') { dependsOn 'fuseTest' }
 jar { from('../../LICENSE') }
 apply from: '../../integration.gradle'
+
+sourceSets.main.java.srcDir('../../versions/1.20.1/src/main/java')
+if (providers.gradleProperty('visualTest').isPresent()) {
+    sourceSets.main.java.srcDir('../../visual/src/main/java')
+    sourceSets.main.resources.srcDir('../../visual/src/main/resources')
+    mixin { config 'creeper_reversed.visual.mixins.json' }
+}
+sourceSets.main.resources.srcDir('../../versions/1.20.1/src/main/resources')

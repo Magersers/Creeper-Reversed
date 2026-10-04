@@ -1,0 +1,4 @@
+allprojects {
+    group = 'io.github.magersers.creeperreversed'
+    version = rootProject.mod_version
+}

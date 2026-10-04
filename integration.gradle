@@ -1,0 +1,16 @@
+// Opt-in harness. These classes/resources must never ship in release builds.
+if (providers.gradleProperty('integrationTest').isPresent()) {
+    sourceSets.main.java.srcDir('../../integration/src/main/java')
+    sourceSets.main.resources.srcDir('../../integration/src/main/resources')
+    if (project.name.startsWith('fabric-')) {
+        processResources.doLast {
+            def metadataFile = file("${destinationDir}/fabric.mod.json")
+            def metadata = new groovy.json.JsonSlurper().parse(metadataFile)
+            metadata.mixins.add('creeper_reversed.integration.mixins.json')
+            metadataFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(metadata))
+        }
+    }
+    if (project.name.startsWith('forge-')) {
+        mixin { config 'creeper_reversed.integration.mixins.json' }
+    }
+}

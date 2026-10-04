@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+issueTrackerURL="https://github.com/Magersers/Creeper-Reversed/issues"
+[[mods]]
+modId="creeper_reversed"
+version="1.0.0"
+displayName="Creeper Reversed"
+displayURL="https://github.com/Magersers/Creeper-Reversed"
+logoFile="assets/creeper_reversed/icon.png"
+authors="Magersers"
+description='''The creeper stays calm. You hiss. You explode.'''
+[[dependencies.creeper_reversed]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.252,21.2)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.creeper_reversed]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+[[mixins]]
+config="creeper_reversed.mixins.json"

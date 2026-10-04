@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.magersers.creeperreversed.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "creeper_reversed.refmap.json",
+  "mixins": ["PlayerMixin", "CreeperMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

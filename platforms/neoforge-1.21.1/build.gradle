@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+java { toolchain.languageVersion = JavaLanguageVersion.of(21) }
+neoForge {
+    version = '21.1.252'
+    runs {
+        client { client() }
+        server { server(); programArgument '--nogui' }
+    }
+    mods { creeper_reversed { sourceSet(sourceSets.main) } }
+}
+base { archivesName = "creeper-reversed-${project.name}" }
+sourceSets.main.java.srcDir('../../common/src/main/java')
+sourceSets.main.resources.srcDir('../../common/src/main/resources')
+sourceSets.test.java.srcDir('../../common/src/test/java')
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.register('fuseTest', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'io.github.magersers.creeperreversed.FuseTest'
+}
+tasks.named('check') { dependsOn 'fuseTest' }
+jar { from('../../LICENSE') }
+processResources {
+    filesMatching('creeper_reversed.mixins.json') {
+        filter { line -> line.contains('"refmap"') ? '' : line }
+    }
+}
+if (providers.gradleProperty('integrationTest').isPresent()) {
+    sourceSets.main.java.srcDir('../../integration/src/main/java')
+    sourceSets.main.resources.srcDir('../../integration/src/main/resources')
+    processResources {
+        filesMatching('META-INF/neoforge.mods.toml') {
+            filter { line -> line + (line.startsWith('config=') ? '\n[[mixins]]\nconfig="creeper_reversed.integration.mixins.json"' : '') }
+        }
+    }
+}

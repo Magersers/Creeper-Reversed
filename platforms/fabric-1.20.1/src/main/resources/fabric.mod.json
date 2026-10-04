@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "environment": "*",
+  "id": "creeper_reversed",
+  "icon": "assets/creeper_reversed/icon.png",
+  "depends": {
+    "minecraft": "1.20.1",
+    "java": ">=17",
+    "fabricloader": ">=0.16.14"
+  },
+  "contact": {
+    "issues": "https://github.com/Magersers/Creeper-Reversed/issues",
+    "sources": "https://github.com/Magersers/Creeper-Reversed"
+  },
+  "mixins": [
+    "creeper_reversed.mixins.json"
+  ],
+  "name": "Creeper Reversed",
+  "license": "MIT",
+  "authors": [
+    "Magersers"
+  ],
+  "version": "1.0.0",
+  "description": "The creeper stays calm. You hiss. You explode."
+}

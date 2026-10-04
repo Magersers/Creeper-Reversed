@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '6.0.54'
+    id 'org.spongepowered.mixin' version '0.7.38'
+}
+java { toolchain.languageVersion = JavaLanguageVersion.of(17) }
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    runs {
+        server {
+            workingDirectory project.file('run')
+            args '--nogui'
+            mods { creeper_reversed { source sourceSets.main } }
+        }
+        client {
+            workingDirectory project.file('run')
+            mods { creeper_reversed { source sourceSets.main } }
+        }
+    }
+}
+repositories { maven { url = 'https://repo.spongepowered.org/repository/maven-public/' } }
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+mixin {
+    add sourceSets.main, 'creeper_reversed.refmap.json'
+    config 'creeper_reversed.mixins.json'
+}
+jar {
+    manifest { attributes('MixinConfigs': 'creeper_reversed.mixins.json') }
+    finalizedBy 'reobfJar'
+}
+base { archivesName = "creeper-reversed-${project.name}" }
+sourceSets.main.java.srcDir('../../common/src/main/java')
+sourceSets.main.resources.srcDir('../../common/src/main/resources')
+sourceSets.test.java.srcDir('../../common/src/test/java')
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.register('fuseTest', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'io.github.magersers.creeperreversed.FuseTest'
+}
+tasks.named('check') { dependsOn 'fuseTest' }
+jar { from('../../LICENSE') }
+apply from: '../../integration.gradle'
